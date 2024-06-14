@@ -35,6 +35,12 @@ function Navbar(){
                             ABOUT
                         </Link>
                         <Link
+                            to="/add-book"
+                            className="nav-link lg:inline-flex lg:w-auto px-3 py-2 rounded text-black items-center justify-center hover:bg-[rgb(96,77,194)] hover:text-white"
+                        >
+                            ADD BOOK
+                        </Link>
+                        <Link
                             to="/faqs"
                             className="nav-link lg:inline-flex lg:w-auto px-3 py-2 rounded text-black items-center justify-center hover:bg-[rgb(96,77,194)] hover:text-white"
                         >

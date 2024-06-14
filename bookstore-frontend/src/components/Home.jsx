@@ -1,7 +1,22 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 // import { Link } from "react-router-dom";
+import axios from "axios";
 
-function Home(){
+function Home({books}){
+    // const [books, setBooks] = useState();
+
+    // useEffect(()=>{
+    //     axios.get('http://127.0.0.1:8000/api/books')
+    //     .then(response => {
+    //         setBooks(response.data);
+    //         console.log(response.data)
+    // })
+    // .catch(error => {
+    //     alert(error);
+    // })
+    // })
+
+
     return(
         <div className="min-h-max">
             <div className='bg-orange-900'>
@@ -18,12 +33,15 @@ function Home(){
             </div>
             <div className="container flex flex-col mt-40 mb-10">
                 <div className="text-center">
-                    <h6 className="text-xl">Unparalleled Luxury & Comfort</h6>
-                    <div className='w-full mx-auto gap-4 grid md:grid-cols-2 grid-cols-1 my-10'>
-                            <div className="max-w-xl bg-white rounded-lg shadow-sm transition duration-100 ease-in-out hover:shadow-lg mb-4">
+                    <h6 className="text-2xl">Today's Picks</h6>
+                    <div className='w-full mx-auto gap-4 grid md:grid-cols-4 grid-cols-2 my-10'>
+                        {books && books.map(book => {
+                            return (
+                                <div key={book.id}>
+                                <div className="max-w-xl bg-white rounded-lg shadow-sm transition duration-100 ease-in-out hover:shadow-lg mb-4">
                                     <img className="rounded-t-lg" src="./assets/image8.jpg" alt="" />
                                 <div className="p-5 text-left">
-                                    <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">Cozy Accomodation</h5>
+                                    <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">{book.title}</h5>
                                     <p className="mb-10 text-base text-gray-700">Relax in our well-appointed rooms and suites, designed to provide comfort while reflecting the lodge’s natural surroundings.</p>
                                     <a href="/rooms" className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-[rgb(159,19,19)] transition duration-200 ease-in-out hover:bg-[rgb(0,156,200)] focus:ring-1 focus:outline-none focus:ring-[rgb(0,156,200)]">
                                         Read more
@@ -33,6 +51,11 @@ function Home(){
                                     </a>
                                 </div>
                             </div>
+                            </div>
+                            );
+                        })}
+
+                            
 
                             <div className="max-w-xl bg-white rounded-lg shadow-sm transition duration-100 ease-in-out hover:shadow-lg mb-4">
                                     <img className="rounded-t-lg" src="./assets/image13.jpg" alt="" />
@@ -78,34 +101,6 @@ function Home(){
 
                         </div>
                 </div>
-                <section className="py-10 bg-[rgb(233,229,221)]">
-                    <div className="container mx-auto px-5 sm:px-10 md:px-12 lg:px-5 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8 md:gap-6">
-                        <div className="bg-white shadow-lg shadow-gray-200/50  border border-gray-100/80 p-6 md:p-5 lg:p-6 rounded-lg flex flex-col justify-center gap-0.5 text-center text-gray-700">
-                            <span className="font-semibold text-xl sm:text-3xl md:text-4xl text-gray-900">
-                            2 Years
-                            </span>
-                            <span>Of Operation</span>
-                        </div>
-                        <div className="bg-white shadow-lg shadow-gray-200/50  border border-gray-100/80 p-6 md:p-5 lg:p-6 rounded-lg flex flex-col justify-center gap-0.5 text-center text-gray-700">
-                            <span className="font-semibold text-xl sm:text-3xl md:text-4xl text-gray-900">
-                            +50
-                            </span>
-                            <span>Staff</span>
-                        </div>
-                        <div className="bg-white shadow-lg shadow-gray-200/50  border border-gray-100/80 p-6 md:p-5 lg:p-6 rounded-lg flex flex-col justify-center gap-0.5 text-center text-gray-700">
-                            <span className="font-semibold text-xl sm:text-3xl md:text-4xl text-gray-900">
-                            95%
-                            </span>
-                            <span>Satisfaction</span>
-                        </div>
-                        <div className="bg-white shadow-lg shadow-gray-200/50  border border-gray-100/80 p-6 md:p-5 lg:p-6 rounded-lg flex flex-col justify-center gap-0.5 text-center text-gray-700">
-                            <span className="font-semibold text-xl sm:text-3xl md:text-4xl text-gray-900">
-                            +2k
-                            </span>
-                            <span>Clients</span>
-                        </div>
-                    </div>
-                </section>
             </div>
         </div>
     )
