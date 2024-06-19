@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-// import { Link } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 
-function AddBooks({books, setBooks}){
-    // axios.defaults.withCredentials = true;
+function EditBook({books, setBooks, editBookId}){
 
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         author: 1,
         category: 1,
@@ -20,50 +20,86 @@ function AddBooks({books, setBooks}){
         sold_on_credit: true,
     });
 
+    const editFetchedBook = async () => {
+        try {
+            // Fetch data from the API
+            const response = await fetch(`http://127.0.0.1:8000/api/books/${editBookId}/`);
+
+            // Check if the response is OK
+            if (!response.ok) {
+                throw new Error(`Error! status: ${response.status}`);
+            }
+
+            const data = await response.json();
+
+            // Update formData with fetched data
+            setFormData({
+                author: data.author || '',
+                category: data.category || '',
+                title: data.title || '',
+                publisher: data.publisher || '',
+                description: data.description || '',
+                language: data.language || 'English',
+                likes: data.likes || 0,
+                price: data.price || '',
+                year_of_publishing: data.year_of_publishing || '',
+                isbn: data.isbn || '',
+                img_url: data.img_url || '',
+                sold_on_credit: data.sold_on_credit || false,
+            });
+        } catch (error) {
+            // Handle errors
+            console.error('Error fetching books:', error);
+            alert('Oops! an error occured when fetching the book',error.message);
+        }
+    };
+
+    useEffect(() => {
+        editFetchedBook();
+    }, []);
+
+
     const handleChange = (event) => {
         const { name, value } = event.target;
         setFormData({ ...formData, [name]: value });
     };
 
+    const handleEdit = (event) => {
+        event.preventDefault();
+
+        axios.put(`http://127.0.0.1:8000/api/books/${editBookId}`, formData)
+            .then(response => {
+                setBooks(books.map(book => book.id === editBookId ? response.data : book));
+                alert('Book updated successfully');
+            })
+            .catch(error => {
+                alert("There was an error updating the book:", error);
+            });
+    };
+    
     const handleSubmit = async (event) => {
         event.preventDefault();
     
+        console.log("Submitting Data:", formData);
+    
         try {
-            const response = await axios.post('http://127.0.0.1:8000/api/books/', 
-                JSON.stringify(formData), 
+            const response = await axios.put(`http://127.0.0.1:8000/api/books/${editBookId}/`, 
+                JSON.stringify(formData),
                 {
                     headers: {
                         'Accept': 'application/json',
                         'Content-Type': 'application/json',
                     }
-                }
+                } 
             );
     
-            if (response.status !== 201) {
-                throw new Error(`Error! status: ${response.status}`);
-            }
-    
-            setBooks([...books, response.data]);
-            setFormData({
-                author: '',
-                category: '',
-                title: '',
-                publisher: '',
-                description: '',
-                language: 'English',
-                likes: 0,
-                price: 500,
-                year_of_publishing: '',
-                isbn: '',
-                img_url: '',
-                sold_on_credit: true,
-            });
-            alert('Book added successfully👍');
-            console.log("Response Data:", response.data);
+            setBooks(books.map(book => book.id === editBookId ? response.data : book));
+            alert('Book adited successfully👍');
+            navigate("/");
     
         } catch (error) {
             console.error("Error Response:", error.response ? error.response.data : error.message);
-            alert(`Oops😢! An error occured adding the book: ${error.response ? error.response.data : error.message}`);
+            alert(`Oops😢! an error occured while editing the book ${error.response ? error.response.data : error.message}`);
         }
     };
 
@@ -73,7 +109,7 @@ function AddBooks({books, setBooks}){
         <div className="relative flex flex-col justify-center min-h-screen overflow-hidden">
             <div className="w-full p-6 m-auto bg-white rounded-md shadow-xl shadow-rose-600/40 ring-2 ring-indigo-600 lg:max-w-xl">
                 <h1 className="text-3xl font-semibold text-center text-indigo-700 underline uppercase decoration-wavy">
-                   Add a book
+                   Edit a book
                 </h1>
                 <form className="mt-6" onSubmit={handleSubmit}>
                     <div className="mb-2">
@@ -209,4 +245,4 @@ function AddBooks({books, setBooks}){
     )
 }
 
-export default AddBooks;
+export default EditBook;

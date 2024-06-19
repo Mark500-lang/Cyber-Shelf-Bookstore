@@ -12,7 +12,12 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Book)
 class BooksAdmin(admin.ModelAdmin):
-    list_display = ('title', 'author', 'category', 'year_of_publishing', 'price', 'sold_on_credit')
+    list_display = ('title', 'author','publisher', 'category','description', 'language', 'year_of_publishing', 'price', 'likes', 'sold_on_credit', 'isbn', 'img_url')
     list_filter = ('author', 'category', 'sold_on_credit')
     search_fields = ('title', 'author__name')
+    
+    def author_name(self, obj):
+        return obj.author.name if obj.author else None
+
+    author_name.short_description = 'Author'
 

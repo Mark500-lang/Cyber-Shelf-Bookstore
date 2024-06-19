@@ -8,10 +8,14 @@ class AuthorList(generics.ListCreateAPIView):
     serializer_class = AuthorSerializer
 
 # Views for books
-class BookList(generics.ListCreateAPIView):
-    queryset = Book.objects.all()
+class BookListCreate(generics.ListCreateAPIView):
+    queryset = Book.objects.select_related('author', 'category').all()
     serializer_class = BookSerializer
     
+class   BookDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Book.objects.select_related('author', 'category').all()
+    serializer_class = BookSerializer
+
 class BooksSoldOnCredit(generics.ListAPIView):
     serializer_class = BookSerializer
 

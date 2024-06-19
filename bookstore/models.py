@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 # Author Model
 class Author(models.Model):
     name = models.CharField(max_length=700)
-    bio= models.CharField(max_length=800)
+    bio= models.CharField(null=True, max_length=800)
     birth_date = models.DateField(blank=True, null=True)
     
     def __str__(self):
@@ -21,19 +21,20 @@ class Category(models.Model):
 class Book(models.Model):
     title = models.CharField(max_length=200)
     publisher = models.CharField(max_length=200)
-    description = models.CharField(max_length=700)
-    language = models.CharField(max_length=50)
+    description = models.CharField(max_length=700, null=True)
+    language = models.CharField(max_length=200)
     likes = models.PositiveBigIntegerField(default=0)
     price = models.PositiveBigIntegerField(default=0)
-    year_of_publishing = models.CharField(max_length=50)
+    year_of_publishing = models.CharField(max_length=200)
+    isbn = models.CharField(max_length=200, default="9780957037885")
+    img_url = models.CharField(max_length=500, default="https://bookstoreromanceday.org/wp-content/uploads/2020/08/book-cover-placeholder.png")
     created_at = models.DateTimeField(auto_now_add=True)
     
-    author= models.ForeignKey(Author, on_delete = models.CASCADE, related_name='books_authored')
-    category = models.ForeignKey(Category, on_delete = models.CASCADE, related_name='books_in_category')
-    
+    author = models.ForeignKey(Author, on_delete=models.CASCADE, related_name='books_authored')
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='books_in_category')
     sold_on_credit = models.BooleanField(null=True, blank=True, db_index=True)
-    
-    def _str_(self):
+
+    def __str__(self):
         return self.title
 
 # Order Model
