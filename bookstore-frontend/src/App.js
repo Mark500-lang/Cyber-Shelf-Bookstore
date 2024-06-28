@@ -8,7 +8,8 @@ import Faqs from './components/Faqs';
 import Contacts from './components/Contacts';
 import AddBooks from './components/AddBooks';
 import EditBook from './components/EditBook';
-
+import BuyBooks from './components/BuyBooks';
+import Cart from './components/Cart';
 function App() {
   // const [children, setChildren] = useState();
   // const [infants, setInfants] = useState();
@@ -37,6 +38,8 @@ function App() {
           <Route path="/contacts" element={<Contacts/>}/>
           <Route path="/add-book" element={<AddBooks books={books} setBooks={setBooks}/>}/>
           <Route path="/edit-book/:id" element={<EditBook books={books} setBooks={setBooks} editBookId={editBookId}/>}/>
+          <Route path='/buy-book' element={<BuyBooks books={books} setBooks={setBooks} />}/>
+          <Route path="/cart" element={<Cart/>}/>
         </Route>
       </Routes>
     </BrowserRouter>

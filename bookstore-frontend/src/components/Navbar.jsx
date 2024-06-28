@@ -28,12 +28,12 @@ function Navbar(){
                         >
                             HOME
                         </Link>
-                        <Link
+                        {/* <Link
                             to="/about"
                             className="nav-link lg:inline-flex lg:w-auto px-3 py-2 rounded text-black items-center justify-center hover:bg-[rgb(96,77,194)] hover:text-white"
                         >
                             ABOUT
-                        </Link>
+                        </Link> */}
                         <Link
                             to="/add-book"
                             className="nav-link lg:inline-flex lg:w-auto px-3 py-2 rounded text-black items-center justify-center hover:bg-[rgb(96,77,194)] hover:text-white"
@@ -45,6 +45,18 @@ function Navbar(){
                             className="nav-link lg:inline-flex lg:w-auto px-3 py-2 rounded text-black items-center justify-center hover:bg-[rgb(96,77,194)] hover:text-white"
                         >
                             FAQs
+                        </Link>
+                        <Link
+                            to="/buy-book"
+                            className="nav-link lg:inline-flex lg:w-auto px-3 py-2 rounded text-black items-center justify-center hover:bg-[rgb(96,77,194)] hover:text-white"
+                        >
+                            BUY
+                        </Link>
+                        <Link
+                            to="/cart"
+                            className="nav-link lg:inline-flex lg:w-auto px-3 py-2 rounded text-black items-center justify-center hover:bg-[rgb(96,77,194)] hover:text-white"
+                        >
+                            CART
                         </Link>
                         {/* <div class="items-center hidden gap-x-2 lg:flex">
                             <div class="relative flex w-full gap-2 md:w-max">
