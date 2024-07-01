@@ -20,17 +20,15 @@ class BookSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Book
-        fields = [
-            'id', 'title', 'publisher', 'description', 'language', 'likes',
-            'price', 'year_of_publishing', 'isbn', 'img_url', 'created_at',
-            'author', 'category', 'sold_on_credit', 'sales'
-        ]
+        fields = '__all__'
+        # fields = [
+        #     'id', 'title', 'publisher', 'description', 'language', 'likes',
+        #     'price', 'year_of_publishing', 'isbn', 'img_url', 'created_at',
+        #     'author', 'category', 'sold_on_credit', 'sales'
+        # ]
         #['id','title','publisher','description','language','likes','year_of_publishing','category','author','price','created_at']
               
 class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = '__all__'
-        
-
-        

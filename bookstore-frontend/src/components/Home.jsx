@@ -41,24 +41,26 @@ function Home({books, setBooks, setEditBookId}){
                         {books && books.map(book => {
                             return (
                                 <div key={book.id}>
-                                <div className="max-w-xl bg-white rounded-lg shadow-sm transition duration-100 ease-in-out hover:shadow-lg mb-4">
-                                    <img className="rounded-t-lg" src="https://m.media-amazon.com/images/I/71-++hbbERL._AC_UF894,1000_QL80_.jpg" alt="" />
-                                <div className="p-5 text-left">
-                                    <h5 className="mb-2 text-xl font-semibold tracking-tight text-gray-900">{book.title}</h5>
-                                    <p className="mb-2 text-base font-extralight text-gray-700 truncate">{book.description}</p>
-                                    <p className="mb-10 text-base font-extralight text-gray-700 truncate">By: {book.author.name}</p>
-                                    <div className="flex flex-row justify-between">
-                                        <button href="/rooms" onClick={() => handleDelete(book.id, book.title)} className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-[rgb(251,46,1)] transition duration-200 ease-in-out hover:bg-[rgb(96,77,194)] focus:ring-1 focus:outline-none focus:ring-[rgb(0,156,200)]">
-                                            Delete
-                                        </button>
-                                        <Link to={`/edit-book/${book.title}`} onClick={() => handleSetEditId(book.id)} className="inline-flex items-center px-6 py-2 text-sm font-medium text-center text-white bg-[rgb(68,85,221)] transition duration-200 ease-in-out hover:bg-[rgb(96,77,194)] focus:ring-1 focus:outline-none focus:ring-[rgb(0,156,200)]">
-                                            Edit
-                                        </Link>
+                                    <div className="max-w-xl bg-white rounded-lg shadow-sm transition duration-100 ease-in-out hover:shadow-lg mb-4">
+                                        <div>
+                                            <img className="rounded-t-lg w-auto h-80 mx-auto" src={book.img_url} alt="" />    
+                                        </div>
+                                        <div className="p-5 text-left">
+                                            <h5 className="mb-2 text-xl font-semibold tracking-tight text-gray-900">{book.title}</h5>
+                                            <p className="mb-2 text-base font-extralight text-gray-700 truncate">{book.description}</p>
+                                            <p className="mb-10 text-base font-extralight text-gray-700 truncate">By: {book.author.name}</p>
+                                            <div className="flex flex-row justify-between">
+                                                <button href="/rooms" onClick={() => handleDelete(book.id, book.title)} className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-[rgb(251,46,1)] transition duration-200 ease-in-out hover:bg-[rgb(96,77,194)] focus:ring-1 focus:outline-none focus:ring-[rgb(0,156,200)]">
+                                                    Delete
+                                                </button>
+                                                <Link to={`/edit-book/${book.title}`} onClick={() => handleSetEditId(book.id)} className="inline-flex items-center px-6 py-2 text-sm font-medium text-center text-white bg-[rgb(68,85,221)] transition duration-200 ease-in-out hover:bg-[rgb(96,77,194)] focus:ring-1 focus:outline-none focus:ring-[rgb(0,156,200)]">
+                                                    Edit
+                                                </Link>
+                                            </div>
+                                            
+                                        </div>
                                     </div>
-                                    
                                 </div>
-                            </div>
-                            </div>
                             );
                         })}
                         </div>

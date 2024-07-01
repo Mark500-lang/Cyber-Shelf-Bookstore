@@ -63,19 +63,6 @@ function EditBook({books, setBooks, editBookId}){
         const { name, value } = event.target;
         setFormData({ ...formData, [name]: value });
     };
-
-    const handleEdit = (event) => {
-        event.preventDefault();
-
-        axios.put(`http://127.0.0.1:8000/api/books/${editBookId}`, formData)
-            .then(response => {
-                setBooks(books.map(book => book.id === editBookId ? response.data : book));
-                alert('Book updated successfully');
-            })
-            .catch(error => {
-                alert("There was an error updating the book:", error);
-            });
-    };
     
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -94,7 +81,7 @@ function EditBook({books, setBooks, editBookId}){
             );
     
             setBooks(books.map(book => book.id === editBookId ? response.data : book));
-            alert('Book adited successfully👍');
+            alert('Book edited successfully👍');
             navigate("/");
     
         } catch (error) {
@@ -211,7 +198,7 @@ function EditBook({books, setBooks, editBookId}){
                         </label>
                         <input
                             type="text"
-                            name="img-url"
+                            name="img_url"
                             onChange={handleChange}
                             value={formData.img_url}
                             className="block w-full px-4 py-2 mt-2 text-indigo-700 bg-white border rounded-md focus:border-indigo-400 focus:ring-indigo-300 focus:outline-none focus:ring focus:ring-opacity-40"

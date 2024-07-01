@@ -39,7 +39,7 @@ function App() {
           <Route path="/add-book" element={<AddBooks books={books} setBooks={setBooks}/>}/>
           <Route path="/edit-book/:id" element={<EditBook books={books} setBooks={setBooks} editBookId={editBookId}/>}/>
           <Route path='/buy-book' element={<BuyBooks books={books} setBooks={setBooks} />}/>
-          <Route path="/cart" element={<Cart/>}/>
+          <Route path="/cart" element={<Cart books={books} setBooks={setBooks} />}/>
         </Route>
       </Routes>
     </BrowserRouter>
