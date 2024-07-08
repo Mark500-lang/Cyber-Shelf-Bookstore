@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
-
+import 'flowbite';
 function BuyBooks({books, setBooks}){
 
     const navigate = useNavigate();
@@ -53,7 +53,7 @@ function BuyBooks({books, setBooks}){
                     </h4>    
                 </div>
             </div> */}
-            <div className="container flex flex-col mt-40 mb-10">
+            <div className="container flex flex-col mt-20 mb-10">
 
                 <form class="max-w-xl mx-auto mb-16">
                     <div class="flex">

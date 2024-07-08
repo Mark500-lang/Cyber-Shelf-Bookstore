@@ -1,7 +1,16 @@
 from django.contrib import admin
-from .models import Author, Category, Book, Order
+from bookstore.models import User, Profile, Author, Category, Book, Order
 
 #Register your models here.
+@admin.register(User)
+class UserAdmin(admin.ModelAdmin):
+    list_display = ('username', 'email')
+    
+@admin.register(Profile)
+class ProfileAdmin(admin.ModelAdmin):
+    list_editable = ['image', 'bio']
+    list_display = ['user', 'full_name', 'image', 'bio']
+    
 @admin.register(Author)
 class AuthorAdmin(admin.ModelAdmin):
     list_display = ('name', 'birth_date')
@@ -24,3 +33,5 @@ class BooksAdmin(admin.ModelAdmin):
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
     list_display = ('book',)
+    
+    

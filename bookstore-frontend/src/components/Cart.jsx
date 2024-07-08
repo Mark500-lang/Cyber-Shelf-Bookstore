@@ -3,24 +3,39 @@ import axios from "axios";
 import { useActionData } from "react-router-dom";
 
 function Cart({ books, setBooks }){
-    const [count, setCount] = useState(1);
-    const increment=()=>{
-        setCount(function (prevCount) {
-        return (prevCount += 1);
-        });
-    }
-    const decrement=()=>{
-        setCount(function (prevCount) {
-        if (prevCount > 1) {
-            return (prevCount -= 1); 
-        } else {
-            return (prevCount = 1);
-        }
-        });
-    }
 
     const booksInCart = books.filter(book => book.in_cart === true);
-
+    
+    const [count, setCount] = useState(() => {
+        // Initialize quantities based on booksInCart data
+        const initialCount = {};
+        booksInCart.forEach(book => {
+          initialCount[book.id] = 1; // Default quantity to 1
+        });
+        return initialCount;
+      });
+    const increment=(bookId)=>{
+        setCount(prevCount => ({
+            ...prevCount,
+            [bookId]: prevCount[bookId] + 1
+          }));
+    }
+    const decrement=(bookId)=>{
+        setCount(prevCount=> ({
+        // if (prevCount > 1) {
+            ...prevCount,
+            [bookId]: Math.max(prevCount[bookId] - 1, 1)
+        // } else {
+        //     return (prevCount = 1);
+        // }
+        }));
+    }
+    const calculateSubtotal = () => {
+        return booksInCart.reduce((total, book) => {
+          return total + book.price * (count[book.id] || 1);
+        }, 0);
+      };
+      
     const handleRemoveFromCart=( cartAddId, name)=>{
         console.log(cartAddId);
         axios.patch(`http://127.0.0.1:8000/api/books/${cartAddId}/`, 
@@ -78,7 +93,7 @@ function Cart({ books, setBooks }){
                                     </p>
                                     <div className="flex justify-between items-center">
                                         <div className="flex items-center gap-4">
-                                            <button onClick={decrement}
+                                            <button onClick={()=> decrement(book.id)}
                                                 className="group rounded-[50px] border border-gray-200 shadow-sm shadow-transparent p-2.5 flex items-center justify-center bg-white transition-all duration-500 hover:shadow-gray-200 hover:bg-gray-50 hover:border-gray-300 focus-within:outline-gray-300">
                                                 <svg className="stroke-gray-900 transition-all duration-500 group-hover:stroke-black"
                                                     width="18" height="19" viewBox="0 0 18 19" fill="none"
@@ -89,9 +104,9 @@ function Cart({ books, setBooks }){
                                             </button>
                                             <input type="text" name="copies" id="number"
                                                 className="border border-gray-200 rounded-full w-10 aspect-square outline-none text-gray-900 font-semibold text-sm py-1.5 px-3 bg-gray-100  text-center"
-                                                value={count}
+                                                value={count[book.id] || 1}
                                                 placeholder='1'/>
-                                            <button onClick={increment}
+                                            <button onClick={()=> increment(book.id)}
                                                 className="group rounded-[50px] border border-gray-200 shadow-sm shadow-transparent p-2.5 flex items-center justify-center bg-white transition-all duration-500 hover:shadow-gray-200 hover:bg-gray-50 hover:border-gray-300 focus-within:outline-gray-300">
                                                 <svg className="stroke-gray-900 transition-all duration-500 group-hover:stroke-black"
                                                     width="18" height="19" viewBox="0 0 18 19" fill="none"
@@ -101,13 +116,28 @@ function Cart({ books, setBooks }){
                                                 </svg>
                                             </button>
                                         </div>
-                                        <h6 className="text-[rgb(96,77,194)] font-manrope font-bold text-2xl leading-9 text-right">Ksh {book.price * count}</h6>
+                                        <h6 className="text-[rgb(96,77,194)] font-manrope font-bold text-2xl leading-9 text-right">Ksh {book.price * (count[book.id] || 1)}</h6>
                                     </div>
                                 </div>
-                            </div> 
+                            </div>
                         );
                     })}
-                    
+                    <div className="flex flex-col md:flex-row items-center md:items-center justify-between lg:px-6 pb-6 border-b border-gray-200 max-lg:max-w-lg max-lg:mx-auto">
+                                <h5 className="text-gray-900 font-manrope font-semibold text-2xl leading-9 w-full max-md:text-center max-md:mb-4">Subtotal</h5>
+        
+                                <div className="flex items-center justify-between gap-10 ">
+                                    <button
+                                        className="rounded-full py-2.5 px-3 bg-indigo-50 text-indigo-600 font-semibold text-xs text-center whitespace-nowrap transition-all duration-500 hover:bg-indigo-100">Promo
+                                        Code?</button>
+                                    <h6 className="font-manrope font-bold text-3xl lead-10 text-indigo-600">Ksh {calculateSubtotal()}</h6>
+                                </div>
+                            </div>
+                            <div className=" flex flex-col max-lg:max-w-lg max-lg:mx-auto">
+                                <button className="rounded-full mt-16 py-2 px-5 bg-indigo-600 text-white font-semibold text-lg max-w-32 mx-auto text-center transition-all duration-500 hover:bg-indigo-700 ">
+                                    Checkout
+                                </button>
+                
+                            </div>
                     </> 
                 }
             </div>
