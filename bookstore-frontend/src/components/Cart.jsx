@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
-import { useActionData } from "react-router-dom";
+import apiClient from '../api';
 
 function Cart({ books, setBooks }){
 
@@ -38,7 +37,7 @@ function Cart({ books, setBooks }){
       
     const handleRemoveFromCart=( cartAddId, name)=>{
         console.log(cartAddId);
-        axios.patch(`http://127.0.0.1:8000/api/books/${cartAddId}/`, 
+        apiClient.patch(`/api/books/${cartAddId}/`, 
             {
                 in_cart: false
             },

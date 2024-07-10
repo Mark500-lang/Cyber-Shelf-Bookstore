@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter ,Routes, Route } from "react-router-dom";
-import axios from "axios";
 import Common from "./components/Common";
 import Home from './components/Home';
 import About from './components/About';
@@ -10,15 +9,19 @@ import AddBooks from './components/AddBooks';
 import EditBook from './components/EditBook';
 import BuyBooks from './components/BuyBooks';
 import Cart from './components/Cart';
+import apiClient from './api';
+
 function App() {
   // const [children, setChildren] = useState();
   // const [infants, setInfants] = useState();
   const [books, setBooks] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [query, setQuery] = useState("")
   //set Id to load data on selected book for editing
   const [editBookId, setEditBookId] = useState();
 
   useEffect(() => {
-    axios.get('http://127.0.0.1:8000/api/books')
+    apiClient.get('/api/books')
         .then(response => {
             setBooks(response.data);
             console.log(response.data); 
@@ -27,6 +30,17 @@ function App() {
             console.error("There was an error making the request:", error);
         });
 }, []);
+
+useEffect(() => {
+  apiClient.get('/api/category')
+      .then(response => {
+        setCategories(response.data);
+          console.log(response.data); 
+      })
+      .catch(error => {
+          console.error("There was an error making the request:", error);
+      });
+}, [query]);
 
   return (
     <BrowserRouter>

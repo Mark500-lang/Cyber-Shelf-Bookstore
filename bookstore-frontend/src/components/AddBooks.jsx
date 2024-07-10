@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-// import { Link } from "react-router-dom";
-import axios from "axios";
+import apiClient from '../api';
 
 function AddBooks({books, setBooks}){
     // axios.defaults.withCredentials = true;
@@ -29,7 +28,7 @@ function AddBooks({books, setBooks}){
         event.preventDefault();
     
         try {
-            const response = await axios.post('http://127.0.0.1:8000/api/books/', 
+            const response = await apiClient.post('/api/books/', 
                 JSON.stringify(formData), 
                 {
                     headers: {

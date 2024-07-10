@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import apiClient from "../api";
 
 function Home({books, setBooks, setEditBookId}){
     // const [books, setBooks] = useState([]);
 
     const handleDelete = (id, name) => {
-        axios.delete(`http://127.0.0.1:8000/api/books/${id}/`)
+        apiClient.delete(`/api/books/${id}/`)
             .then(response => {
                 setBooks(books.filter(book => book.id !== id));
                 alert(`${name} deleted successfully`);

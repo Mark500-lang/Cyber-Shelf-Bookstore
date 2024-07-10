@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
-import axios from "axios";
+import apiClient from '../api';
 
 function EditBook({books, setBooks, editBookId}){
 
@@ -23,7 +23,7 @@ function EditBook({books, setBooks, editBookId}){
     const editFetchedBook = async () => {
         try {
             // Fetch data from the API
-            const response = await fetch(`http://127.0.0.1:8000/api/books/${editBookId}/`);
+            const response = await fetch(`/api/books/${editBookId}/`);
 
             // Check if the response is OK
             if (!response.ok) {
@@ -70,7 +70,7 @@ function EditBook({books, setBooks, editBookId}){
         console.log("Submitting Data:", formData);
     
         try {
-            const response = await axios.put(`http://127.0.0.1:8000/api/books/${editBookId}/`, 
+            const response = await apiClient.put(`/api/books/${editBookId}/`, 
                 JSON.stringify(formData),
                 {
                     headers: {

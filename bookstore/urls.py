@@ -1,5 +1,6 @@
 from django.urls import path 
-from .views import BookListCreate, BookDetail, AuthorList, BooksSoldOnCredit, BooksSoldOffCredit, SoldBooks, OrderListCreateView, OrderDetailView
+from rest_framework_simplejwt.views import TokenRefreshView # type: ignore
+from .views import BookListCreate, BookDetail, AuthorList, CategoryList, BooksSoldOnCredit, BooksSoldOffCredit, SoldBooks, OrderListCreateView, OrderDetailView, MyTokenObtainPairView, RegisterView, dashboard
 
 urlpatterns = [
     path('books/', BookListCreate.as_view()),
@@ -8,6 +9,13 @@ urlpatterns = [
     path('books/sold-off-credit/', BooksSoldOffCredit.as_view(), name='books-sold-off-credit'),
     path('books/sold/', SoldBooks.as_view(), name='sold-books'),
     path('authors/', AuthorList.as_view()),
+    path('category/', CategoryList.as_view()),
     path('orders/', OrderListCreateView.as_view(), name='order-create'),
     path('orders/<int:pk>/', OrderDetailView.as_view(), name='order-detail'),
+    
+    path('token/', MyTokenObtainPairView.as_view()),
+    path('token/refresh/', TokenRefreshView.as_view()),
+    path('register/', RegisterView.as_view()),
+    path('dashboard/', dashboard)
+    
 ]

@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
-import axios from "axios";
 import 'flowbite';
+import apiClient from '../api';
+
 function BuyBooks({books, setBooks}){
 
     const navigate = useNavigate();
@@ -19,7 +20,7 @@ function BuyBooks({books, setBooks}){
     const handleAddToCart=async ( cartAddId, name, event)=>{
         console.log(cartAddId);
         try {
-            const response = await axios.patch(`http://127.0.0.1:8000/api/books/${cartAddId}/`, 
+            const response = await apiClient.patch(`/api/books/${cartAddId}/`, 
                 { in_cart: true },
                 {
                     headers: {
@@ -106,10 +107,22 @@ function BuyBooks({books, setBooks}){
                                             <h5 className="mb-2 text-l font-semibold tracking-tight text-gray-900">{book.title}</h5>
                                             <p className="mb-2 text-base font-extralight text-gray-700">Price: {book.price}</p>
                                             <p className="mb-10 text-base font-extralight text-gray-700 truncate">{book.description}</p>
-                                            <div className="flex flex-row justify-between">
-                                                <button onClick={()=>handleSetDisplay(book.id)} className="inline-flex items-center px-6 py-2 text-sm font-medium text-center text-white bg-[rgb(68,85,221)] transition duration-200 ease-in-out hover:bg-[rgb(96,77,194)] focus:ring-1 focus:outline-none focus:ring-[rgb(0,156,200)]">
-                                                    Read More
+                                            <div className="flex flex-col justify-between">
+                                            <div className="flex justify-between max-w-20">
+                                                <button onClick={()=>handleSetDisplay(book.id)}>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                                                    </svg>
                                                 </button>
+                                                <button>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                                {/* <button onClick={()=>handleSetDisplay(book.id)} className="inline-flex items-center px-6 py-2 text-sm font-medium text-center text-white bg-[rgb(68,85,221)] transition duration-200 ease-in-out hover:bg-[rgb(96,77,194)] focus:ring-1 focus:outline-none focus:ring-[rgb(0,156,200)]">
+                                                    Read More
+                                                </button> */}
                                             </div>
                                                 
                                         </div>
@@ -125,7 +138,7 @@ function BuyBooks({books, setBooks}){
                                 books.map(book => (
                                     book.id === displayId && (
                                         <div key={book.id}>
-                                            <div className="max-w-5xl mx-auto gap-4 grid md:grid-cols-2 grid-cols-1 my-10 bg-white rounded-lg shadow-sm transition duration-100 ease-in-out hover:shadow-lg mb-4">
+                                            <div onClick={handleSetDisplay} className="max-w-5xl mx-auto gap-4 grid md:grid-cols-2 grid-cols-1 my-10 bg-white rounded-lg shadow-sm transition duration-100 ease-in-out hover:shadow-lg mb-4">
                                                 <div>
                                                     <img className="rounded-t-lg w-2/4 h-auto" src={book.img_url} alt="" />
                                                 </div>
@@ -134,9 +147,9 @@ function BuyBooks({books, setBooks}){
                                                     <p className="mb-2 text-base font-extralight text-gray-700">{book.description}</p>
                                                     <p className="mb-2 text-base font-extralight text-gray-700">By: {book.author.name}</p>
                                                     <p className="mb-2 text-base font-extralight text-gray-700">Genre: {book.category.name}</p>
-                                                    <p className="mb-12">About the author: <span className="text-base font-extralight text-gray-700">{book.author.bio}</span></p>
+                                                    <p className="mb-0">About the author: <span className="text-base font-extralight text-gray-700">{book.author.bio}</span></p>
                                                     <div className="flex flex-row justify-between">
-                                                        <button onClick={handleSetDisplay} className="inline-flex items-center px-6 py-2 text-sm font-medium text-center text-white bg-[rgb(68,85,221)] transition duration-200 ease-in-out hover:bg-[rgb(96,77,194)] focus:ring-1 focus:outline-none focus:ring-[rgb(0,156,200)]">
+                                                        <button className="inline-flex items-center px-6 py-2 text-sm font-medium text-center text-white bg-[rgb(68,85,221)] transition duration-200 ease-in-out hover:bg-[rgb(96,77,194)] focus:ring-1 focus:outline-none focus:ring-[rgb(0,156,200)]">
                                                             Back
                                                         </button>
                                                         <button onClick={()=>handleAddToCart(book.id, book.title)} className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-[rgb(251,46,1)] transition duration-200 ease-in-out hover:bg-[rgb(96,77,194)] focus:ring-1 focus:outline-none focus:ring-[rgb(0,156,200)]">
