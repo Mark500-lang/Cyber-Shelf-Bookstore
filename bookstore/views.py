@@ -3,7 +3,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework_simplejwt.views import TokenObtainPairView # type: ignore
 
 from .models import Author, Category, Book, Order, Profile, User
-from .serializers import AuthorSerializer, CategorySerializer, BookSerializer, OrderSerializer, UserSerializer, MyTokenObtainPairSerializer, RegisterSerializer
+from .serializers import AuthorSerializer, CategorySerializer, BookSerializer, BookCreateSerializer, OrderSerializer, UserSerializer, MyTokenObtainPairSerializer, RegisterSerializer
 from django.shortcuts import render
 
 from rest_framework.permissions import AllowAny, IsAuthenticated
@@ -38,12 +38,16 @@ class AuthorList(generics.ListCreateAPIView):
 #Views for categories
 class CategoryList(generics.ListCreateAPIView):
     queryset = Category.objects.all()
-    serializer_class = CategorySerializer    
-
-# Views for books
-class BookListCreate(generics.ListCreateAPIView):
+    serializer_class = CategorySerializer 
+  
+# Views for books  
+class BookList(generics.ListAPIView):
     queryset = Book.objects.select_related('author', 'category').all()
-    serializer_class = BookSerializer
+    serializer_class = BookSerializer   
+
+class BookCreate(generics.CreateAPIView):
+    queryset = Book.objects.select_related('author', 'category').all()
+    serializer_class = BookCreateSerializer
     
 class   BookDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Book.objects.select_related('author', 'category').all()

@@ -68,12 +68,32 @@ class BookSerializer(serializers.ModelSerializer):
         model = Book
         fields = '__all__'
         # fields = [
-        #     'id', 'title', 'publisher', 'description', 'language', 'likes',
-        #     'price', 'year_of_publishing', 'isbn', 'img_url', 'created_at',
-        #     'author', 'category', 'sold_on_credit', 'sales'
-        # ]
+        #     'id', 'title', 'publisher', 'description', 'language', 'likes', 'price',
+        #     'year_of_publishing', 'isbn', 'img_url', 'author_id', 'category_id',
+        #     'sold_on_credit', 'sales', 'in_cart'
+        # ] 
         #['id','title','publisher','description','language','likes','year_of_publishing','category','author','price','created_at']
-              
+        
+class BookCreateSerializer(serializers.ModelSerializer):
+    author_id = serializers.PrimaryKeyRelatedField(
+        queryset=Author.objects.all(),
+        source='author',
+        write_only=True
+    )
+    category_id = serializers.PrimaryKeyRelatedField(
+        queryset=Category.objects.all(),
+        source='category',
+        write_only=True
+    )
+
+    class Meta:
+        model = Book
+        fields = fields = [
+            'id', 'title', 'publisher', 'description', 'language', 'likes', 'price',
+            'year_of_publishing', 'isbn', 'img_url', 'author_id', 'category_id',
+            'sold_on_credit', 'sales', 'in_cart'
+        ]
+                
 class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order

@@ -68,6 +68,7 @@ class Book(models.Model):
     sold_on_credit = models.BooleanField(null=True, blank=True, db_index=True)
     sales = models.PositiveBigIntegerField(default=0)
     in_cart = models.BooleanField(default=False, db_index=True)
+    
     def __str__(self):
         return self.title
 

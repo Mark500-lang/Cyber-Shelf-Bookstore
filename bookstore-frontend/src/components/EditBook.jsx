@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from 'react-router-dom';
 import apiClient from '../api';
 
@@ -20,7 +20,7 @@ function EditBook({books, setBooks, editBookId}){
         sold_on_credit: true,
     });
 
-    const editFetchedBook = async () => {
+    const editFetchedBook = useCallback(async () => {
         try {
             // Fetch data from the API
             const response = await fetch(`/api/books/${editBookId}/`);
@@ -52,11 +52,11 @@ function EditBook({books, setBooks, editBookId}){
             console.error('Error fetching books:', error);
             alert('Oops! an error occured when fetching the book',error.message);
         }
-    };
+    }, [editBookId]);
 
     useEffect(() => {
         editFetchedBook();
-    }, []);
+    }, [editFetchedBook]);
 
 
     const handleChange = (event) => {
@@ -201,6 +201,21 @@ function EditBook({books, setBooks, editBookId}){
                             name="img_url"
                             onChange={handleChange}
                             value={formData.img_url}
+                            className="block w-full px-4 py-2 mt-2 text-indigo-700 bg-white border rounded-md focus:border-indigo-400 focus:ring-indigo-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                        />
+                    </div>
+                    <div className="mb-2">
+                        <label
+                            htmlFor="year_of_publishing"
+                            className="block text-sm font-semibold text-gray-800"
+                        >
+                            Price
+                        </label>
+                        <input
+                            type="integer"
+                            name="price"
+                            onChange={handleChange}
+                            value={formData.price}
                             className="block w-full px-4 py-2 mt-2 text-indigo-700 bg-white border rounded-md focus:border-indigo-400 focus:ring-indigo-300 focus:outline-none focus:ring focus:ring-opacity-40"
                         />
                     </div>

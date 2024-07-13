@@ -115,7 +115,7 @@ function Cart({ books, setBooks }){
                                                 </svg>
                                             </button>
                                         </div>
-                                        <h6 className="text-[rgb(96,77,194)] font-manrope font-bold text-2xl leading-9 text-right">Ksh {book.price * (count[book.id] || 1)}</h6>
+                                        <h6 className="text-[rgb(96,77,194)] font-manrope font-bold text-2xl leading-9 text-right">Kes {book.price * (count[book.id] || 1)}</h6>
                                     </div>
                                 </div>
                             </div>
@@ -128,7 +128,7 @@ function Cart({ books, setBooks }){
                                     <button
                                         className="rounded-full py-2.5 px-3 bg-indigo-50 text-indigo-600 font-semibold text-xs text-center whitespace-nowrap transition-all duration-500 hover:bg-indigo-100">Promo
                                         Code?</button>
-                                    <h6 className="font-manrope font-bold text-3xl lead-10 text-indigo-600">Ksh {calculateSubtotal()}</h6>
+                                    <h6 className="font-manrope font-bold text-3xl lead-10 text-indigo-600">Kes {calculateSubtotal()}</h6>
                                 </div>
                             </div>
                             <div className=" flex flex-col max-lg:max-w-lg max-lg:mx-auto">

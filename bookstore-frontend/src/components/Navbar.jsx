@@ -26,37 +26,37 @@ function Navbar(){
                             to="/"
                             className="nav-link lg:inline-flex lg:w-auto px-3 py-2 rounded text-black items-center justify-center hover:bg-[rgb(96,77,194)] hover:text-white"
                         >
-                            HOME
+                            Home
                         </Link>
                         {/* <Link
-                            to="/about"
-                            className="nav-link lg:inline-flex lg:w-auto px-3 py-2 rounded text-black items-center justify-center hover:bg-[rgb(96,77,194)] hover:text-white"
-                        >
-                            ABOUT
-                        </Link> */}
-                        <Link
                             to="/add-book"
                             className="nav-link lg:inline-flex lg:w-auto px-3 py-2 rounded text-black items-center justify-center hover:bg-[rgb(96,77,194)] hover:text-white"
                         >
                             ADD BOOK
-                        </Link>
+                        </Link> */}
                         <Link
-                            to="/faqs"
+                            to="/all-books"
                             className="nav-link lg:inline-flex lg:w-auto px-3 py-2 rounded text-black items-center justify-center hover:bg-[rgb(96,77,194)] hover:text-white"
                         >
-                            FAQs
+                            All Books
                         </Link>
                         <Link
-                            to="/buy-book"
+                            to="/about"
                             className="nav-link lg:inline-flex lg:w-auto px-3 py-2 rounded text-black items-center justify-center hover:bg-[rgb(96,77,194)] hover:text-white"
                         >
-                            BUY
+                            About
                         </Link>
                         <Link
                             to="/cart"
                             className="nav-link lg:inline-flex lg:w-auto px-3 py-2 rounded text-black items-center justify-center hover:bg-[rgb(96,77,194)] hover:text-white"
                         >
-                            CART
+                            Cart
+                        </Link>
+                        <Link
+                            to="/faqs"
+                            className="nav-link lg:inline-flex lg:w-auto px-3 py-2 rounded text-black items-center justify-center hover:bg-[rgb(96,77,194)] hover:text-white"
+                        >
+                            Faqs
                         </Link>
                         {/* <div class="items-center hidden gap-x-2 lg:flex">
                             <div class="relative flex w-full gap-2 md:w-max">

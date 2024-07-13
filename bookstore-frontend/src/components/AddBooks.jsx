@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import apiClient from '../api';
 
 function AddBooks({books, setBooks}){
@@ -28,7 +28,7 @@ function AddBooks({books, setBooks}){
         event.preventDefault();
     
         try {
-            const response = await apiClient.post('/api/books/', 
+            const response = await apiClient.post('/api/create-book/', 
                 JSON.stringify(formData), 
                 {
                     headers: {

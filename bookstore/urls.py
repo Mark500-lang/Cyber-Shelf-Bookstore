@@ -1,9 +1,10 @@
 from django.urls import path 
 from rest_framework_simplejwt.views import TokenRefreshView # type: ignore
-from .views import BookListCreate, BookDetail, AuthorList, CategoryList, BooksSoldOnCredit, BooksSoldOffCredit, SoldBooks, OrderListCreateView, OrderDetailView, MyTokenObtainPairView, RegisterView, dashboard
+from .views import BookCreate, BookList, BookDetail, AuthorList, CategoryList, BooksSoldOnCredit, BooksSoldOffCredit, SoldBooks, OrderListCreateView, OrderDetailView, MyTokenObtainPairView, RegisterView, dashboard
 
 urlpatterns = [
-    path('books/', BookListCreate.as_view()),
+    path('books/', BookList.as_view()),
+    path('create-book/', BookCreate.as_view()),
     path('books/<int:pk>/', BookDetail.as_view(), name='book-detail'),
     path('books/sold-on-credit/', BooksSoldOnCredit.as_view(), name='books-sold-on-credit'),
     path('books/sold-off-credit/', BooksSoldOffCredit.as_view(), name='books-sold-off-credit'),
