@@ -5,7 +5,7 @@ function Navbar(){
     return(
         <header
                 className="p-2 sticky top-0 w-full transition-all duration-1000 ease-in-out transform header" style={{ zIndex: "9999999" }}>
-                <div className="container mx-auto flex flex-row flex-wrap p-2 md:justify-normal justify-between items-center bg-[rgb(237,215,215)]  rounded-xl border border-slate-300">
+                <div className="container mx-auto flex flex-row flex-wrap p-2 md:justify-normal justify-between items-center bg-[rgb(255,206,44)]  rounded-xl border border-slate-300">
                     <Link
                         to="/"
                         className="flex title-font font-medium items-center text-grey-900 mr-4 border-r-none md:border-r border-gray-900 pr-4 md:mb-0"
