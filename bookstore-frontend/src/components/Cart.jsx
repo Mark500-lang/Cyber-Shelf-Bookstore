@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import apiClient from '../api';
+import { ToastContainer, toast, Slide } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Cart({ books, setBooks }){
 
@@ -49,17 +51,39 @@ function Cart({ books, setBooks }){
             })
             .then(response => {
                 setBooks(books.map(book => book.id === cartAddId ? response.data : book));
-                alert(`${name} removed from cart`);
+                toast.success(`${name} removed from cart`, {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                    transition: Slide,
+                    });
             })
             .catch(error => {
                 console.log(error);
-                alert("There was an error updating the book:", error);
+                toast.error("There was an error updating the book:", error, {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                    transition: Slide,
+                });
             });
     }
 
     return(
         <section className="py-24 relative min-h-screen">
+            
             <div className="w-full max-w-7xl px-4 md:px-5 lg-6 mx-auto">
+                <ToastContainer className='mt-20'/>
                 <h2 className="title font-manrope font-bold text-4xl leading-10 mb-8 text-center text-black">Cart</h2>
                 {
                     booksInCart.length === 0? 

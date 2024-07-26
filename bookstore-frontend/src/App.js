@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter ,Routes, Route } from "react-router-dom";
 import Common from "./components/Common";
-import Home from './components/Home';
+// import Home from './components/Home';
 import About from './components/About';
 import Faqs from './components/Faqs';
 import Contacts from './components/Contacts';
-import AddBooks from './components/AddBooks';
-import EditBook from './components/EditBook';
+// import AddBooks from './components/AddBooks';
+// import EditBook from './components/EditBook';
 import BuyBooks from './components/BuyBooks';
 import Cart from './components/Cart';
 import AllBooks from './components/AllBooks';
 import apiClient from './api';
+import Login from './components/Login';
+import Register from './components/Register';
 
 function App() {
   // const [children, setChildren] = useState();
@@ -30,6 +32,7 @@ function App() {
 }, []);
 
   return (
+    <div className='overflow-y-scroll scrollbar-thin scrollbar-webkit h-screen'>
     <BrowserRouter>
       <Routes >
         <Route path='/' element={<Common/>}>
@@ -43,9 +46,12 @@ function App() {
           {/* <Route path='/buy-book' element={<BuyBooks books={books} setBooks={setBooks} />}/> */}
           <Route path="/cart" element={<Cart books={books} setBooks={setBooks} />}/>
           <Route path="/all-books" element={<AllBooks books={books} setBooks={setBooks} />}/>
+          <Route path='/login' element={<Login/>} />
+          <Route path='/register' element={<Register/>} />
         </Route>
       </Routes>
     </BrowserRouter>
+    </div>
   );
 }
 

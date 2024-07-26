@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
-import 'flowbite';
 import apiClient from '../api';
+import { ToastContainer, toast, Slide } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function BuyBooks({books, setBooks}){
 
@@ -32,13 +33,33 @@ function BuyBooks({books, setBooks}){
             );
     
             setBooks(books.map(book => book.id === cartAddId ? response.data : book));
-            alert(`${name} has been added to cart successfully👍`);
-            // setDetailedDisplay(!detailedDisplay);
-            navigate("/cart");
+            toast.success(`${name} has been added to cart successfully👍`, {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+                transition: Slide,
+                });
+            setDetailedDisplay(!detailedDisplay);
+            // navigate("/cart");
     
         } catch (error) {
             console.error("Error Response:", error.response ? error.response.data : error.message);
-            alert(`Oops😢! an error has occured ${error.message}`);
+            toast.error(`Oops😢! an error has occured ${error.message}`, {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+                transition: Slide,
+                });
         }
     }
 
@@ -67,11 +88,12 @@ function BuyBooks({books, setBooks}){
         } else {
           setFilteredBooks(books);
         }
-      }, [selectedCategory, books]);
+      }, [selectedCategory, books, detailedDisplay]);
 
 
     return(
         <div className="min-h-screen">
+            <ToastContainer className='mt-20'/>
             {/* <div className='bg-blue-900'>
                 <img src="./assets/image9.jpg" alt="home" className="w-full opacity-80 h-[40rem] bg-blend-multiply bg-black-900"/>
                 <div className="container flex font-bold  flex-col mx-auto max-w-7xl left-0 right-0 items-center justify-center p-5 absolute top-[40%] ">
