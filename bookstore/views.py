@@ -21,7 +21,7 @@ class RegisterView(generics.CreateAPIView):
 @permission_classes([IsAuthenticated])
 def dashboard(request):
     if request.method == "GET":
-        response = f"Hey {request.user}, You are gwtting a response"
+        response = f"Hey {request.user}, You are getting a response"
         return Response({'response': response}, status=status.HTTP_200_OK)
     elif request.method == "POST":
         text = request.POST.get("text")

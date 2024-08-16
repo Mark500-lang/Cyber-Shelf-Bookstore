@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter ,Routes, Route } from "react-router-dom";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import PrivateRoute from "./utils/PrivateRoute"
+import { AuthProvider } from './context/AuthContext'
+
 import Common from "./components/Common";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 // import Home from './components/Home';
 import About from './components/About';
 import Faqs from './components/Faqs';
@@ -32,24 +37,24 @@ function App() {
 }, []);
 
   return (
-    <div className='overflow-y-scroll scrollbar-thin scrollbar-webkit h-screen'>
+    <div className=''>
     <BrowserRouter>
-      <Routes >
-        <Route path='/' element={<Common/>}>
-          {/* <Route index element={<Home books={books} setBooks={setBooks} setEditBookId={setEditBookId}/>}/> */}
-          <Route index element={<BuyBooks books={books} setBooks={setBooks} />}/>
-          <Route path="/about" element={<About/>}/>
-          <Route path="/faqs" element={<Faqs/>}/>
-          <Route path="/contacts" element={<Contacts/>}/>
-          {/* <Route path="/add-book" element={<AddBooks books={books} setBooks={setBooks}/>}/> */}
-          {/* <Route path="/edit-book/:id" element={<EditBook books={books} setBooks={setBooks} editBookId={editBookId}/>}/> */}
-          {/* <Route path='/buy-book' element={<BuyBooks books={books} setBooks={setBooks} />}/> */}
-          <Route path="/cart" element={<Cart books={books} setBooks={setBooks} />}/>
-          <Route path="/all-books" element={<AllBooks books={books} setBooks={setBooks} />}/>
-          <Route path='/login' element={<Login/>} />
-          <Route path='/register' element={<Register/>} />
-        </Route>
-      </Routes>
+      <AuthProvider>
+      <Common/>
+        <Switch >
+          {/* <Route path='/' element={<Common/>}> */}
+            {/* <Route index element={<Home books={books} setBooks={setBooks} setEditBookId={setEditBookId}/>}/> */}
+          <Route exact path="/" component={() => <BuyBooks books={books} setBooks={setBooks} />}/> {/* Use component prop */}
+          <Route path="/about" component={About}/>
+          <Route path="/faqs" component={Faqs}/>
+          <Route path="/contacts" component={Contacts}/>
+          <Route path="/cart" component={() => <Cart books={books} setBooks={setBooks} />}/>
+          <Route path='/login' component={Login}/>
+          <Route path='/register' component={Register}/>
+          {/* </Route> */}
+        </Switch>
+        <Footer/>
+      </AuthProvider>
     </BrowserRouter>
     </div>
   );

@@ -1,7 +1,27 @@
-import React from "react";
+import React, { useContext, useState } from 'react'
 import { Link } from "react-router-dom";
+import AuthContext from "../context/AuthContext";
 
 function Login(){
+
+    const {loginUser} = useContext(AuthContext)
+    const handleSubmit = e => {
+        e.preventDefault()
+        const email = e.target.email.value
+        const password = e.target.password.value
+
+        email.length > 0 && loginUser(email, password)
+
+        console.log(email)
+        console.log(password)
+    }
+    //hide and view password
+    const [togglePassword, setTogglePassword] = useState(true);
+    const viewPassword = (e) =>{
+        e.preventDefault()
+        setTogglePassword(!togglePassword);
+    }
+
     return(
         <section className="bg-gray-100 min-h-screen flex box-border justify-center items-center">
             <div className="bg-[#ffffff] rounded-2xl flex max-w-3xl p-5 items-center">
@@ -9,11 +29,11 @@ function Login(){
                     <h2 className="font-bold text-3xl text-[#002D74]">Login</h2>
                     <p className="text-sm mt-4 text-[#002D74]">If you already a member, easily log in now.</p>
 
-                    <form action="" className="flex flex-col gap-4">
+                    <form action="" className="flex flex-col gap-4" onSubmit={handleSubmit}>
                         <input className="p-2 mt-8 rounded-xl border" type="email" name="email" placeholder="Email"/>
                         <div className="relative">
-                            <input className="p-2 rounded-xl border w-full" type="password" name="password" id="password" placeholder="Password"/>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="gray" id="togglePassword"
+                            <input className="p-2 rounded-xl border w-full" type={togglePassword === true ? "password" : "" } name="password" id="password" placeholder="Password"/>
+                            <svg onClick={viewPassword} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="gray" id="togglePassword"
                                 className="bi bi-eye absolute top-1/2 right-3 -translate-y-1/2 cursor-pointer z-20 opacity-100"
                                 viewBox="0 0 16 16">
                                 <path
@@ -36,7 +56,7 @@ function Login(){
                         </div>
                         <button className="bg-[#002D74] text-white py-2 rounded-xl hover:scale-105 duration-300 hover:bg-[#206ab1] font-medium" type="submit">Login</button>
                     </form>
-                    <div className="mt-6  items-center text-gray-100">
+                    <div className="mt-6  items-center">
                         <hr className="border-gray-300"/>
                         <p className="text-center text-sm">OR</p>
                         <hr className="border-gray-300"/>

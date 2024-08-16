@@ -1,11 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import useScrollListener from "./hooks/useScrollListener";
 import './Navbar.css';
+import jwt_decode from "jwt-decode"
+import AuthContext from '../context/AuthContext'
 
 function Navbar() {
     const [navClassList, setNavClassList] = useState([]);
-    
+    const {user, logoutUser} = useContext(AuthContext)
+
+    //obtain token to check login
+    const token = localStorage.getItem("authTokens")
+
+    if (token){
+        const decoded = jwt_decode(token) 
+        var user_id = decoded.user_id
+    }
+
     const scroll = useScrollListener();
 
     //update classList of nav on scroll
@@ -76,11 +87,34 @@ function Navbar() {
             >
                 Faqs
             </Link>
+            <Link
+                to="/contacts"
+                className="nav-link lg:inline-flex lg:w-auto px-3 py-2 rounded text-black items-center justify-center hover:bg-[rgb(96,77,194)] hover:text-white"
+            >
+                Contact Us
+            </Link>
             </nav>
             <div className="flex justify-end items-center gap-1">
-            <button variant="outline" className="text-sm text-white mx-5 h-10 px-4 py-2 rounded bg-[rgb(96,77,194)]" asChild>
-                <Link to="/contacts">CONTACT US</Link>
-            </button>
+
+            {token !== null ? 
+              <>
+                <Link to="/profile">
+                  Profile
+                </Link>
+                <button onClick={logoutUser} variant="outline" className="text-sm text-white mx-5 h-10 px-4 py-2 rounded bg-[rgb(96,77,194)]" asChild>
+                    Logout
+                </button>
+              </>
+
+                :
+
+                <Link to="/login">
+                <button variant="outline" className="text-sm text-white mx-5 h-10 px-4 py-2 rounded bg-[rgb(96,77,194)]" asChild>
+                    Login
+                </button>
+                </Link>
+            }    
+            
             </div>
         </div>
         </header>

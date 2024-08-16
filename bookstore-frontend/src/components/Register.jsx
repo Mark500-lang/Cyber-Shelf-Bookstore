@@ -1,7 +1,33 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import {useState, useContext} from 'react'
+import { Link } from 'react-router-dom'
+import AuthContext from '../context/AuthContext'
 
 function Register(){
+
+    const [email, setEmail] = useState("")
+    const [username, setUsername] = useState("")
+    const [password, setPassword] = useState("")
+    const [password2, setPassword2] = useState("")
+
+    const {registerUser} = useContext(AuthContext)
+
+    const handleSubmit = async e => {
+        e.preventDefault()
+        registerUser(email, username, password, password2)
+    }
+
+    //hide and view password
+    const [togglePassword, setTogglePassword] = useState(true);
+    const viewPassword = (e) =>{
+        e.preventDefault()
+        setTogglePassword(!togglePassword);
+    }
+    const [togglePassword2, setTogglePassword2] = useState(true);
+    const viewPassword2 = (e) =>{
+        e.preventDefault()
+        setTogglePassword2(!togglePassword2);
+    }
+    
     return(
         <section className="bg-gray-100 min-h-screen flex box-border justify-center items-center">
             <div className="bg-[#ffffff] rounded-2xl flex max-w-3xl p-5 items-center">
@@ -9,12 +35,12 @@ function Register(){
                     <h2 className="font-bold text-3xl text-[#002D74]">Register</h2>
                     <p className="text-sm mt-4 text-[#002D74]">Create an account to login, easily log in now.</p>
 
-                    <form action="" className="flex flex-col gap-4">
-                        <input className="p-2 mt-8 rounded-xl border" type="fullname" name="fullname" placeholder="Full Name"/>
-                        <input className="p-2 rounded-xl border" type="email" name="email" placeholder="Email"/>
+                    <form action="" className="flex flex-col gap-4" onSubmit={handleSubmit}>
+                        <input className="p-2 mt-8 rounded-xl border" type="username" name="username" placeholder="Full Name" onChange={e=> setUsername(e.target.value)}/>
+                        <input className="p-2 rounded-xl border" type="email" name="email" placeholder="Email"  onChange={e=> setEmail(e.target.value)}/>
                         <div className="relative">
-                            <input className="p-2 rounded-xl border w-full" type="password" name="password" id="password" placeholder="Password"/>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="gray" id="togglePassword"
+                            <input className="p-2 rounded-xl border w-full" type={togglePassword === true ? "password" : "" } name="password" id="password" placeholder="Password"  onChange={e=> setPassword(e.target.value)}/>
+                            <svg onClick={viewPassword} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="gray" id="togglePassword"
                                 className="bi bi-eye absolute top-1/2 right-3 -translate-y-1/2 cursor-pointer z-20 opacity-100"
                                 viewBox="0 0 16 16">
                                 <path
@@ -36,8 +62,8 @@ function Register(){
                             </svg>
                         </div>
                         <div className="relative">
-                            <input className="p-2 rounded-xl border w-full" type="password" name="password" id="password" placeholder="Confirm Password"/>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="gray" id="togglePassword"
+                            <input className="p-2 rounded-xl border w-full" type={togglePassword2 === true ? "password" : "" } name="password2" id="password2" placeholder="Confirm Password"  onChange={e=> setPassword2(e.target.value)}/>
+                            <svg onClick={viewPassword2} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="gray" id="togglePassword"
                                 className="bi bi-eye absolute top-1/2 right-3 -translate-y-1/2 cursor-pointer z-20 opacity-100"
                                 viewBox="0 0 16 16">
                                 <path
