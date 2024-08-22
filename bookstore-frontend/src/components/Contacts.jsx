@@ -5,9 +5,9 @@ function Contacts(){
         <section className="container relative md:min-h-screen h-screen flex flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
             <div className="relative hidden h-full flex-col bg-muted p-10 text-white lg:flex dark:border-r dark:border-slate-700">
                 <div className="absolute inset-0 bg-[url(https://images.pexels.com/photos/20387249/pexels-photo-20387249/free-photo-of-summer-resort-with-pool.jpeg?auto=compress&cs=tinysrgb&w=600)] bg-center bg-cover" />
-                    <a href="contact" className="relative z-20 flex items-center text-4xl font-lg font-bold">
+                    {/* <a href="contact" className="relative z-20 flex items-center text-4xl font-lg font-bold">
                         Contact Us
-                    </a>
+                    </a> */}
                     
                 </div>
 
@@ -21,11 +21,6 @@ function Contacts(){
                 </textarea>
                 <button className="w-20 mx-auto rounded h-12 text-white text-base font-semibold leading-6 transition-all duration-200 hover:bg-[rgb(163,1,63)] bg-[rgb(205,1,80)] shadow-sm">Send</button>
             </div>
-            <div className='my-5 text-3xl'>
-                    <h1>
-                        Location
-                    </h1>
-                </div>
         </section>
     )
 }

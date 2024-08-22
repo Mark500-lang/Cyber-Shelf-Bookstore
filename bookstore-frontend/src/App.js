@@ -44,8 +44,9 @@ function App() {
         <Switch >
           {/* <Route path='/' element={<Common/>}> */}
             {/* <Route index element={<Home books={books} setBooks={setBooks} setEditBookId={setEditBookId}/>}/> */}
-          <Route exact path="/" component={() => <BuyBooks books={books} setBooks={setBooks} />}/> {/* Use component prop */}
+          <Route exact path="/" component={() => <BuyBooks books={books} setBooks={setBooks} />}/>
           <Route path="/about" component={About}/>
+          <Route path="/all-books" component={() => <AllBooks books={books} setBooks={setBooks} />}/>
           <Route path="/faqs" component={Faqs}/>
           <Route path="/contacts" component={Contacts}/>
           <Route path="/cart" component={() => <Cart books={books} setBooks={setBooks} />}/>
