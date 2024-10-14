@@ -44,16 +44,20 @@ export const AuthProvider = ({ children }) => {
             setAuthTokens(data)
             setUser(jwt_decode(data.access))
             localStorage.setItem("authTokens", JSON.stringify(data))
-            history.push("/")
+            
             swal.fire({
                 title: "Login Successful",
                 icon: "success",
                 toast: true,
                 timer: 6000,
-                position: 'top-right',
+                position: 'bottom-right',
                 timerProgressBar: true,
                 showConfirmButton: false,
             })
+
+            setTimeout(()=>{
+                history.push("/")
+            }, 3000)
 
         } else {    
             console.log(response.status);
@@ -87,7 +91,7 @@ export const AuthProvider = ({ children }) => {
                 icon: "success",
                 toast: true,
                 timer: 6000,
-                position: 'top-right',
+                position: 'bottom-right',
                 timerProgressBar: true,
                 showConfirmButton: false,
             })
@@ -99,7 +103,7 @@ export const AuthProvider = ({ children }) => {
                 icon: "error",
                 toast: true,
                 timer: 6000,
-                position: 'top-right',
+                position: 'bottom-right',
                 timerProgressBar: true,
                 showConfirmButton: false,
             })
@@ -116,7 +120,7 @@ export const AuthProvider = ({ children }) => {
             icon: "success",
             toast: true,
             timer: 6000,
-            position: 'top-right',
+            position: 'bottom-right',
             timerProgressBar: true,
             showConfirmButton: false,
         })

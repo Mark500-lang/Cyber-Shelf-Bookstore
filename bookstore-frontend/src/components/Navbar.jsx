@@ -34,7 +34,7 @@ function Navbar() {
         className={`sticky top-0 w-full transition-all duration-300 ease-in-out transform ${navClassList.join(" ")}`}
         style={{ zIndex: "9999999" }}
         >
-        <div className="mx-auto flex flex-row flex-wrap p-2 md:justify-normal justify-between items-center bg-[rgb(212,230,227)]">
+        <div className="mx-auto flex flex-row flex-wrap p-2 md:justify-normal justify-between items-center bg-[rgb(255,255,255)]">
             <Link
             to="/"
             className="flex title-font font-medium items-center text-grey-900 mr-4 border-r-none md:border-r border-gray-900 pr-4 md:mb-0"

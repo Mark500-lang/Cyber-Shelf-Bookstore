@@ -93,7 +93,7 @@ function BuyBooks({books, setBooks}){
 
     return(
         <div className="min-h-screen">
-            <ToastContainer className='mt-20'/>
+            <ToastContainer/>
             {/* <div className='bg-blue-900'>
                 <img src="./assets/image9.jpg" alt="home" className="w-full opacity-80 h-[40rem] bg-blend-multiply bg-black-900"/>
                 <div className="container flex font-bold  flex-col mx-auto max-w-7xl left-0 right-0 items-center justify-center p-5 absolute top-[40%] ">
@@ -105,16 +105,17 @@ function BuyBooks({books, setBooks}){
                     </h4>    
                 </div>
             </div> */}
-            <div className="container flex flex-col mt-20 mb-10">
+            <div className="container flex flex-col mt-4 mb-10">
 
-                <form class="max-w-xl mx-auto mb-16">
+                <form class="max-w-xl ml-4 mb-16">
                     <div>
-                        <label htmlFor="category">Select Category:</label>
+                        {/* <label htmlFor="category">Select Category:</label> */}
                         <select
                         id="category"
+                        className="text-lg text-gray-600 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 "
                         onChange={(e) => setSelectedCategory(parseInt(e.target.value))}
                         >
-                        <option value="">All</option>
+                        <option value="">Select Category</option>
                         {categories.map(category => (
                             <option key={category.id} value={category.id}>
                             {category.name}
